@@ -1,4 +1,5 @@
 const handleSignIn=(req,res,db,bcrypt)=>{
+    console.log('handleSignIn')
     const {email,password}=req.body;
     if(!email||!password){
         res.status(400).json('missing fields')
