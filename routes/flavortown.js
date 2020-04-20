@@ -13,11 +13,13 @@ router.get('/', function(req, res, next) {
   });
  
   //Using a News API 
-  router.get('/news',(req,res)=>{
-      let queryString=querystring.stringify({
+router.get('/news',(req,res)=>{
+      var queryString=querystring.stringify({
           q:"food",
           apiKey:NEWS_API_KEY,
       })
+      console.log(queryString)
+
       console.log('/news,pinged')
       axios.get(`https://newsapi.org/v2/everything?${queryString}`).then(data=>res.json(data.data.articles[Math.floor(Math.random()*6)]))
   })
