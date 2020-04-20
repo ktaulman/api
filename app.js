@@ -10,6 +10,7 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var flavortownRouter =require('./routes/flavortown')
+var brainappRouter=require('./routes/brainapp')
 
 //Function Expression 
 var app = express();
@@ -27,6 +28,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/flavortown',flavortownRouter)
+app.use('/brainapp',brainappRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
