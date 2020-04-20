@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt=require('bcrypt-nodejs');
-var register=require('./controllers/register');
-var signIn=require('./controllers/signin')
-var image=require('./controllers/image')
-var users=require('./controllers/users')
-var profileID=require('./controllers/profileID')
+var register=require('../controllers/register');
+var signIn=require('../controllers/signin')
+var image=require('../controllers/image')
+var users=require('../controllers/users')
+var profileID=require('../controllers/profileID')
 
 
 router.get('/postman',(req,res)=>{
