@@ -20,6 +20,7 @@ router.get("/users",(req,res)=>{users.handleUsers(req,res,db)})
 router.get('/profile/:id',(req,res)=>{profileID.handleProfile(req,res,db)})
 
 //POSTS
+router.post('/testPost',(req,res)=>{res.send('/testPost working')});
 router.post('/signin',(req,res)=>{signIn.handleSignIn(req,res,db,bcrypt)})//dependency injection
 
 router.post('/register',(req,res)=>{register.handleRegister(req,res,db,bcrypt)});
