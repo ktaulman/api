@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var pg =require('pg')
+pg.defaults.ssl=true;
 
 var bcrypt=require('bcrypt-nodejs');
 var register=require('../controllers/register');
@@ -11,12 +13,14 @@ var profileID=require('../controllers/profileID')
 const db = require('knex')({
   client: 'pg',
   connection: {
-    connectionString: process.env.DATABASE_URL,
-  }
+    connectionString:process.env.DATABASE_URL
+   }
 });
-console.log('database',db)
+
+
 router.get('/postman',(req,res)=>{
-  res.json("this API is working")
+  // res.json("this API is working")
+ db('test').select('*').then(data=>res.json(data)).catch(err=>console.error(err))
 })
 
 router.get('/',(req,res)=>{
@@ -28,6 +32,7 @@ router.get('/profile/:id',(req,res)=>{profileID.handleProfile(req,res,db)})
 
 //POSTS
 router.post('/testPost',(req,res)=>{res.send('/testPost working')});
+
 router.post('/signin',(req,res)=>{signIn.handleSignIn(req,res,db,bcrypt)})//dependency injection
 
 router.post('/register',(req,res)=>{register.handleRegister(req,res,db,bcrypt)});
