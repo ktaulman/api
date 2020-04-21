@@ -6,6 +6,7 @@
     if(!email||!name||!password){
         res.status(400).json('missing fields')
     }
+    console.log(db)
     const hash = bcrypt.hashSync(password);
     db.transaction(trx=>{
         trx.insert({
@@ -24,12 +25,16 @@
                 joined:new Date()
             })
             .then(user=>res.json(user[0]))
-        })
-        .then(trx.commit)
+            .catch(console.error)
+        }).catch(console.error)
+        .then(trx.commit).catch(console.error)
         .then(trx.rollback)
         .catch(err=>res.json('user already registered'))
     })
-    .catch(err=>res.status(400).json('unable to add'))
+    .catch(err=>{
+        
+        console.error(err);
+        res.status(400).json('unable to add')})
 }
 
 module.exports={

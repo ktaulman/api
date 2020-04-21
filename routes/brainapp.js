@@ -7,14 +7,14 @@ var signIn=require('../controllers/signin')
 var image=require('../controllers/image')
 var users=require('../controllers/users')
 var profileID=require('../controllers/profileID')
+
 const db = require('knex')({
   client: 'pg',
   connection: {
     connectionString: process.env.DATABASE_URL,
-    ssl: true
   }
 });
-
+console.log('database',db)
 router.get('/postman',(req,res)=>{
   res.json("this API is working")
 })
