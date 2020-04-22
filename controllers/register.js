@@ -14,7 +14,7 @@
         })
    
         .then(loginEmail=>{
-            console.log('loginEmail',loginEmail[0])
+            console.trace('loginEmail',loginEmail[0])
           return trx('users')
             
             .insert({

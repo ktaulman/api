@@ -1,21 +1,15 @@
 {
 	"folders": [
 		{
-			"name": "flavortown",
-			"path": "../flavortown"
-		},
-		{
 			"name": "brainapp",
 			"path": "../brainapp"
-		},
-		{
-			"name": "brainapp-api",
-			"path": "../brainapp-api"
 		},
 		{
 			"name": "api",
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
 }
