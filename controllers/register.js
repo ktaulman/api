@@ -1,13 +1,7 @@
     const handleRegister=(req,res,db,bcrypt)=>{
+        //extract properties from the req.body
     let {name,email,password}=req.body;
-   
-    //create new user 
-    //check if they forgot to fill out forms
-    if(!email||!name||!password){
-        console.log('email , name , or password empty')
-       return res.status(400).json('missing fields')
-    }
-
+  
     //register User
     const hash = bcrypt.hashSync(password);
     db.transaction(trx=>{
@@ -15,9 +9,12 @@
             hash:hash,
             email:email
         }).into('login').returning('email')
-
+        .catch(err=>{
+           return res.status(400).json('email already exist')
+        })
+   
         .then(loginEmail=>{
-            console.log('loginEmail',loginEmail)
+            console.log('loginEmail',loginEmail[0])
           return trx('users')
             
             .insert({
@@ -30,7 +27,9 @@
         })
         .then(trx.commit)
         .then(trx.rollback)
-        .catch(err=>res.json('user already registered'))
+        .catch(err=>{
+            res.status(500).json('server unable to add')
+        })
     })
     .catch(err=>res.status(400).json('unable to add'))
 }
