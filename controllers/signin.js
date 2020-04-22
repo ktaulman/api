@@ -1,39 +1,25 @@
 const handleSignIn=(req,res,db,bcrypt)=>{
-    console.log('**************')
-    console.log('handleSignIn')
+    //extract user email and password properties
     const {email,password}=req.body;
-    console.log(email,password)
     
-    //edge cases, missing email or password
-    if(!email||!password){
-        res.status(400).json('missing fields')
-    }
-    // db('login').select('email','hash').where('email',email).then(res=>{res})
+    //Use Knex to make pg_db call
     db.select('email','hash').from('login')
     .where('email',email)
     .then(data=>{
-        console.log('data=',data)
+        //if a blank record is return, return an error status
+        if(data.length===0) return res.status(400).json('user not found')
         const isValid=bcrypt.compareSync(password,data[0].hash);
-         if(isValid){
-             console.log('isValid',isValid)
-             db
-                .select('*')
-                .from('users')
-                .where({email:email})
-             .then(user=>{
-                 console.log('LINE 24 HIT',user)
-                 res.status(200).json(user[0])
-             })
-             .catch(err=>{
-                 return res.status(400).json(err)
-             })
-         }
-     })
-     .catch(err=>{
-         console.log(err)
-         res.status(400).json(err)
-     })
-
+        if(isValid){
+            return  db.select('*').from('users')
+            .where({email:email})
+            .then(user=>res.json(user[0]))
+        }else{
+            return res.status(400).json('incorrect password entered')
+        }
+        })
+    .catch(err=>{
+        res.status(400).json(err)
+    })
     }
 
 module.exports={

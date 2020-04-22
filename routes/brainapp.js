@@ -20,7 +20,7 @@ const db = require('knex')({
 
 router.get('/postman',(req,res)=>{
   // res.json("this API is working")
- db('test').select('*').then(data=>res.json(data)).catch(err=>console.error(err))
+ db('test').select('*').then(data=>res.json(data)).catch(err=>console.error('error HIT',err))
 })
 
 router.get('/',(req,res)=>{
