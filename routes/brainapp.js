@@ -9,7 +9,8 @@ var signIn=require('../controllers/signin')
 var image=require('../controllers/image')
 var users=require('../controllers/users')
 var profileID=require('../controllers/profileID')
-
+var cors=require('cors')
+router.use(cors())
 const db = require('knex')({
   client: 'pg',
   connection: {
