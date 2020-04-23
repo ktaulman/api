@@ -4,9 +4,11 @@ var axios =require('axios')
 var NEWS_API_KEY =  process.env.NEWS_API_KEY;
 var FOOD_API_KEY = process.env.FOOD_API_KEY;
 var querystring=require('querystring')
+var cors=require('cors');
 console.log(NEWS_API_KEY);
 console.log(FOOD_API_KEY)
 
+router.use(cors());
 
 router.get('/', function(req, res, next) {
     res.send('flavortown')
