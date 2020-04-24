@@ -5,8 +5,7 @@ var NEWS_API_KEY =  process.env.NEWS_API_KEY;
 var FOOD_API_KEY = process.env.FOOD_API_KEY;
 var querystring=require('querystring')
 var cors=require('cors');
-console.log(NEWS_API_KEY);
-console.log(FOOD_API_KEY)
+
 
 router.use(cors());
 
@@ -20,9 +19,7 @@ router.get('/news',(req,res)=>{
           q:"food",
           apiKey:NEWS_API_KEY,
       })
-      console.log(queryString)
 
-      console.log('/news,pinged')
       axios.get(`https://newsapi.org/v2/everything?${queryString}`).then(data=>res.json(data.data.articles[Math.floor(Math.random()*6)]))
   })
   
@@ -82,8 +79,8 @@ router.get('/news',(req,res)=>{
           query:req.body.input,
       })
       
-      axios.get(`https://api.spoonacular.com/recipes/autocomplete?${queryString}`)
-      .then(data=>res.json(data.data))
+      axios.get(`https://api.spoonacular.com/recipes/search?${queryString}`)
+      .then(recipes=>res.json(recipes.data.results))
   })
   
   router.post('/trending/handleclick',(req,res)=>{
