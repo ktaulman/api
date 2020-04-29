@@ -10,7 +10,7 @@ function wakeUpDyno(dynoURL,intervalMinutes=25,callback){
     setTimeout(()=>{
         try{
             if(day==6||day==7) return console.log('wrong day to wake,skipping HTTP.get');
-            if(hour<8&&hour>16) return console.log('wrong hour to try');
+            if(hour>8&&hour<16) return console.log('wrong hour to try');
             
            HTTP.get(dynoURL,()=>{
                 console.log('Making a HTTP request to ',dynoURL)
