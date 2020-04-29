@@ -58,9 +58,9 @@ function wakeUpDyno(dynoURL,intervalMinutes=25,callback){
 
 let websites=["http://brainapp.kevintaulman.com/","http://flavortown.herokuapp.com"]
 
-server.listen(port,()=>{
-  return websites.forEach(website=>wakeUpDyno(website))
-});
+server.listen(port
+  // ,()=>websites.forEach(website=>wakeUpDyno(website))
+);
 server.on('error', onError);
 server.on('listening', onListening);
 
