@@ -8,11 +8,12 @@ var app = require('../app');
 var debug = require('debug')('generator:server');
 var http = require('http');
 
+var wakeUpDyno=require('../wakeUpDyno.js')
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '4000');
+var port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 console.log(port)
 /**
@@ -24,8 +25,13 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+const websites=['http://flavortown.kevintaulman.com','http://brainapp.kevintaulman.com']
 
-server.listen(port);
+server.listen(port,()=>{
+  wakeUpDyno('http://flavortown.kevintaulman.com',25)
+  wakeUpDyno('http://brainapp.kevintaulman.com',25)
+});
+
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -88,3 +94,4 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
