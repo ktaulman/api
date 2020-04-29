@@ -7,12 +7,14 @@
 var app = require('../app');
 var debug = require('debug')('generator:server');
 var http = require('http');
+
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
+console.log(port)
 /**
  * Create HTTP server.
  */
@@ -22,48 +24,10 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-function wakeUpDyno(dynoURL,intervalMinutes=25,callback){
-  let date=new Date();
-  const day=date.getDay()
-  const hour=date.getHours();
-    
-  //get minutes for timer
-  const minutes=intervalMinutes*60000;
-  setTimeout(()=>{
-      try{
-          if(day==6||day==7) return console.log('wrong day to wake,skipping HTTP.get');
-          if(hour<8&&hour>4) return console.log('wrong hour to try');
-          
-         http.get(dynoURL,()=>{
-              console.log('Making a HTTP request to ',dynoURL)
-          })
-      }
-      catch{
-          console.log('error fetching',dynoURL)
-      }
-      finally{
-          try{
-              callback();
-          }
-          catch(e){
-              callback?console.log('callback failed',e.message):null
-          }
-          finally{
-              console.log('finally')
-              return wakeUpDyno(dynoURL,intervalMinutes,callback)
-          }
-      }
-  },minutes)
-}
 
-let websites=["http://brainapp.kevintaulman.com/","http://flavortown.herokuapp.com"]
-
-server.listen(port
-  // ,()=>websites.forEach(website=>wakeUpDyno(website))
-);
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
 
 /**
  * Normalize a port into a number, string, or false.
